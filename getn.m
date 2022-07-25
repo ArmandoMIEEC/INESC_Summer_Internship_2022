@@ -2,18 +2,18 @@
 % Input: frequencia, S11, S12, group delay
 
 %%% Inputs %%%
-f = ;
-Delta_f = ;
+f = 22000000000;
+Delta_f = 55000000;
 
 % parametros S para correspondentes a frequencia f
-s11_norm1 = ;
-s11_phase1 = ;
+s11_norm1 = 10^(-15.258406 / 10);
+s11_phase1 = deg2rad(-78.902824);
 s21_norm1 = ;
 s21_phase1 = ;
 
 % parametros S para correspondentes a frequencia f + Delta_f
-s11_norm2 = ;
-s11_phase2 = ;
+s11_norm2 = 10^(-12.95456 / 10);
+s11_phase2 = deg2rad(-78.902824);
 s21_norm2 = ;
 s21_phase2 = ;
 

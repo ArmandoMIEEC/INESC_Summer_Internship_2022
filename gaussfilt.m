@@ -6,14 +6,14 @@ MEAN_ON = false;
 
 
 %%% READ DATA %%%
-[f, s11_notfilt] = read_Sparam('21_07 Free Space/s11mut.csv');
-[f, s12_notfilt] = read_Sparam('21_07 Free Space/s12mut.csv');
-[f, s21_notfilt] = read_Sparam('21_07 Free Space/s21mut.csv');
-[f, s22_notfilt] = read_Sparam('21_07 Free Space/s22mut.csv');
-%[f, s11_notfilt] = read_Sparam('33GHz_d31_8cm/s11_2.csv');
-%[f, s12_notfilt] = read_Sparam('33GHz_d31_8cm/s12.csv');
-%[f, s21_notfilt] = read_Sparam('33GHz_d31_8cm/s21.csv');
-%[f, s22_notfilt] = read_Sparam('33GHz_d31_8cm/s22.csv');
+%[f, s11_notfilt] = read_Sparam('21_07 Free Space/s11mut.csv');
+%[f, s12_notfilt] = read_Sparam('21_07 Free Space/s12mut.csv');
+%[f, s21_notfilt] = read_Sparam('21_07 Free Space/s21mut.csv');
+%[f, s22_notfilt] = read_Sparam('21_07 Free Space/s22mut.csv');
+[f, s11_notfilt] = read_Sparam('33GHz_d31_8cm/s11_2.csv');
+[f, s12_notfilt] = read_Sparam('33GHz_d31_8cm/s12.csv');
+[f, s21_notfilt] = read_Sparam('33GHz_d31_8cm/s21.csv');
+[f, s22_notfilt] = read_Sparam('33GHz_d31_8cm/s22.csv');
 
 s11 = s11_notfilt;
 s12 = s12_notfilt;
@@ -28,7 +28,7 @@ if LOW_ON
   s22 = lowpass(s22, 0.05);
 end
 if GAUSS_ON 
-  w = gausswin(50);
+  w = gausswin(10);
   w = w / sum(w);
   s11 = filter(w, 1, s11);
   s12 = filter(w, 1, s12);
