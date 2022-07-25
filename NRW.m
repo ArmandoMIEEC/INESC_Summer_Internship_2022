@@ -7,7 +7,7 @@ data = readmatrix('data.txt');
 %Data format: [f(GHz), Re[s11], Im[s11], Re[s21], Im[s21]]
 
 %Parameters
-L = 0.5 * 10^ - 3;
+L = 5 * 10^ - 3;
 freq = data(:, 1);
 s11 = data(:, 2) + 1i * data(:, 3);
 s21 = data(:, 4) + 1i * data(:, 5);
@@ -28,20 +28,25 @@ for i = 1:length(X)
 end
 
 T = (s11 + s21 - Gama) ./ (1 - (s11 + s21) .* Gama);
+
 Lambda = (1 + Gama) ./ ((1 - Gama) .* (freq ./ c));
 Er = (c^2 ./ freq.^2) .* (1 ./ Lambda.^2);
 
 figure
 plot(freq, real(Er));
-hold on
-plot(freq, imag(Er));
-hold off
-title('Permitividade da Amostra');
-xlabel('f (GHz)');
-ylabel('Permitividade Relativa');
-legend("Parte Real", "Parte Imaginária")
+title("permitividade");
 
-%n = fix(L * freq / c);
+n = 1 / (2 * pi) .* (- 4 * pi^2 * L^2 ./ (2 * log(abs(1 ./ T))) .* imag(((1 - Gama) ./ (1 + Gama)).^2 .* (freq ./ c).^2) - angle(1 ./ T));
+figure
+plot(freq, n);
+hold on
+n = 1 / (2 * pi) * (sqrt(real(((1 - Gama) ./ (1 + Gama)).^2 .* (freq / c).^2) * 4 * pi^2 * L^2 + (log(abs(1 ./ T).^2))) - angle(1 ./ T));
+plot(freq, n);
+hold off
+legend('imag', 'real');
+
+%{
+n = fix(L * freq / c);
 %n = ones(length(freq), 1);
 n = 500;
 log_inv_T = log(abs(1 ./ T)) + 1j * (angle(1 ./ T) + 2 * n * pi);

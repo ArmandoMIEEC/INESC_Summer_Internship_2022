@@ -2,7 +2,7 @@ clear;
 clc;
 
 %flags
-FILT_ON = false %0->filtering off, 1->filtering on
+FILT_ON = true; %0->filtering off, 1->filtering on
 FILT_LOW = false; %1->filtro final lowpass, 0->filtro final movmean | só se aplica quando FILT_ON é 1
 
 %%%%%%%%%%%%%%%---*leitura params*---%%%%%%%%%%%%%%%
