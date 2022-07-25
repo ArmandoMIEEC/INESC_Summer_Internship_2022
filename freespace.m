@@ -2,12 +2,12 @@ clear;
 clc;
 
 %flags
-FILT_ON = true %0->filtering off, 1->filtering on
+FILT_ON = false %0->filtering off, 1->filtering on
 FILT_LOW = false; %1->filtro final lowpass, 0->filtro final movmean | só se aplica quando FILT_ON é 1
 
 %%%%%%%%%%%%%%%---*leitura params*---%%%%%%%%%%%%%%%
 %%%---*s11*---%%%
-s11_notfilt = readmatrix('21_07 Free Space/s11mut.csv'); %ler ficheiro csv
+s11_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s11.csv'); %ler ficheiro csv
 s11_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s11_notfilt(:, 2) = 10.^(s11_notfilt(:, 2) / 10); %converção mod db->linear
 s11_notfilt(:, 3) = deg2rad(s11_notfilt(:, 3)); %conversão fase deg->rad
@@ -15,7 +15,7 @@ new_col = s11_notfilt(:, 2) .* exp(s11_notfilt(:, 3) .* 1j); %param complexo
 s11_notfilt = [s11_notfilt new_col]; %criar nova coluna com param complexo
 
 %%%---*s21*---%%%
-s21_notfilt = readmatrix('21_07 Free Space/s21mut.csv'); %ler ficheiro csv
+s21_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s21.csv'); %ler ficheiro csv
 s21_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s21_notfilt(:, 2) = 10.^(s21_notfilt(:, 2) / 10); %converção mod db->linear
 s21_notfilt(:, 3) = deg2rad(s21_notfilt(:, 3)); %conversão fase deg->rad
@@ -23,7 +23,7 @@ new_col = s21_notfilt(:, 2) .* exp(s21_notfilt(:, 3) .* 1j); %param complexo
 s21_notfilt = [s21_notfilt new_col]; %criar nova coluna com param complexo
 
 %%%---*s12*---%%%
-s12_notfilt = readmatrix('21_07 Free Space/s12mut.csv'); %ler ficheiro csv
+s12_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s12.csv'); %ler ficheiro csv
 s12_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s12_notfilt(:, 2) = 10.^(s12_notfilt(:, 2) / 10); %converção mod db->linear
 s12_notfilt(:, 3) = deg2rad(s12_notfilt(:, 3)); %conversão fase deg->rad
@@ -31,7 +31,7 @@ new_col = s12_notfilt(:, 2) .* exp(s12_notfilt(:, 3) .* 1j); %param complexo
 s12_notfilt = [s12_notfilt new_col]; %criar nova coluna com param complexo
 
 %%%---*s22*---%%%
-s22_notfilt = readmatrix('21_07 Free Space/s22mut.csv'); %ler ficheiro csv
+s22_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s22.csv'); %ler ficheiro csv
 s22_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s22_notfilt(:, 2) = 10.^(s22_notfilt(:, 2) / 10); %converção mod db->linear
 s22_notfilt(:, 3) = deg2rad(s22_notfilt(:, 3)); %conversão fase deg->rad
@@ -49,7 +49,7 @@ if FILT_ON
 
     else
         s11 = movmean(s11_notfilt, 60);
-        s21 = movmean(s21_notfilt, 70);
+        s21 = movmean(s21_notfilt, 60);
         s12 = movmean(s12_notfilt, 60);
         s22 = movmean(s22_notfilt, 60);
 

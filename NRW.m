@@ -32,13 +32,18 @@ Lambda = (1 + Gama) ./ ((1 - Gama) .* (freq ./ c));
 Er = (c^2 ./ freq.^2) .* (1 ./ Lambda.^2);
 
 figure
-plot(freq, Er);
-title("permitividade");
+plot(freq, real(Er));
+hold on
+plot(freq, imag(Er));
+hold off
+title('Permitividade da Amostra');
+xlabel('f (GHz)');
+ylabel('Permitividade Relativa');
+legend("Parte Real", "Parte Imaginária")
 
-%{
-n = fix(L * freq / c);
+%n = fix(L * freq / c);
 %n = ones(length(freq), 1);
-%n = 500;
+n = 500;
 log_inv_T = log(abs(1 ./ T)) + 1j * (angle(1 ./ T) + 2 * n * pi);
 
 inv_Lambda2 =- (1 / (2 * pi * L) .* log_inv_T).^2;
@@ -81,7 +86,3 @@ title('Permitividade da Amostra');
 xlabel('f (GHz)');
 ylabel('Permitividade Relativa');
 legend("Parte Real", "Parte Imaginária")
-
-clear;
-clc;
-%}
