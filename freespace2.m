@@ -7,11 +7,7 @@ FILT_LOW = false; %1->filtro final lowpass, 0->filtro final movmean | só se apl
 
 %%%%%%%%%%%%%%%---*leitura params*---%%%%%%%%%%%%%%%
 %%%---*s11*---%%%
-<<<<<<< HEAD
-s11_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s11.csv'); %ler ficheiro csv
-=======
 s11_notfilt = readmatrix('33GHz_d31_8cm/s11_2.csv'); %ler ficheiro csv
->>>>>>> 907118c95a4f52bc99bd32f740f8537aefc95801
 s11_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s11_notfilt(:, 2) = 10.^(s11_notfilt(:, 2) / 10); %converção mod db->linear
 s11_notfilt(:, 3) = deg2rad(s11_notfilt(:, 3)); %conversão fase deg->rad
@@ -19,11 +15,7 @@ new_col = [s11_notfilt(:, 2) .* cos(s11_notfilt(:, 3)), s11_notfilt(:, 2) .* sin
 s11_notfilt = [s11_notfilt, new_col];
 
 %%%---*s21*---%%%
-<<<<<<< HEAD
-s21_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s21.csv'); %ler ficheiro csv
-=======
 s21_notfilt = readmatrix('33GHz_d31_8cm/s21.csv'); %ler ficheiro csv
->>>>>>> 907118c95a4f52bc99bd32f740f8537aefc95801
 s21_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s21_notfilt(:, 2) = 10.^(s21_notfilt(:, 2) / 10); %converção mod db->linear
 s21_notfilt(:, 3) = deg2rad(s21_notfilt(:, 3)); %conversão fase deg->rad
@@ -31,11 +23,7 @@ new_col = [s21_notfilt(:, 2) .* cos(s21_notfilt(:, 3)), s21_notfilt(:, 2) .* sin
 s21_notfilt = [s21_notfilt, new_col];
 
 %%%---*s12*---%%%
-<<<<<<< HEAD
-s12_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s12.csv'); %ler ficheiro csv
-=======
 s12_notfilt = readmatrix('33GHz_d31_8cm/s12.csv'); %ler ficheiro csv
->>>>>>> 907118c95a4f52bc99bd32f740f8537aefc95801
 s12_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s12_notfilt(:, 2) = 10.^(s12_notfilt(:, 2) / 10); %converção mod db->linear
 s12_notfilt(:, 3) = deg2rad(s12_notfilt(:, 3)); %conversão fase deg->rad
@@ -43,11 +31,7 @@ new_col = [s12_notfilt(:, 2) .* cos(s12_notfilt(:, 3)), s12_notfilt(:, 2) .* sin
 s12_notfilt = [s12_notfilt, new_col];
 
 %%%---*s22*---%%%
-<<<<<<< HEAD
-s22_notfilt = readmatrix('33GHz_d31_8cm_22_07_Free_Space/s22.csv'); %ler ficheiro csv
-=======
 s22_notfilt = readmatrix('33GHz_d31_8cm/s22.csv'); %ler ficheiro csv
->>>>>>> 907118c95a4f52bc99bd32f740f8537aefc95801
 s22_notfilt(end, :) = []; %apagar ultima linha -> END csv NaN
 s22_notfilt(:, 2) = 10.^(s22_notfilt(:, 2) / 10); %converção mod db->linear
 s22_notfilt(:, 3) = deg2rad(s22_notfilt(:, 3)); %conversão fase deg->rad
@@ -58,31 +42,17 @@ s22_notfilt = [s22_notfilt, new_col];
 if FILT_ON
 
     if FILT_LOW
-<<<<<<< HEAD
         s11 = [lowpass(s11_notfilt(:, 4), 0.05), lowpass(s11_notfilt(:, 5), 0.05)];
         s21 = [lowpass(s21_notfilt(:, 4), 0.05), lowpass(s21_notfilt(:, 5), 0.05)];
         s12 = [lowpass(s12_notfilt(:, 4), 0.05), lowpass(s12_notfilt(:, 5), 0.05)];
         s22 = [lowpass(s22_notfilt(:, 4), 0.05), lowpass(s22_notfilt(:, 5), 0.05)];
-
     else
-        s11 = [movmean(s11_notfilt(:, 4), 60), movmean(s11_notfilt(:, 5), 60)];
-        s21 = [movmean(s21_notfilt(:, 4), 60), movmean(s21_notfilt(:, 5), 60)];
-        s12 = [movmean(s12_notfilt(:, 4), 60), movmean(s12_notfilt(:, 5), 60)];
-        s22 = [movmean(s22_notfilt(:, 4), 60), movmean(s22_notfilt(:, 5), 60)];
-
-=======
-        s11 = [lowpass(s11_notfilt(:,4), 0.05), lowpass(s11_notfilt(:,5), 0.05)];
-        s21 = [lowpass(s21_notfilt(:,4), 0.05), lowpass(s21_notfilt(:,5), 0.05)];
-        s12 = [lowpass(s12_notfilt(:,4), 0.05), lowpass(s12_notfilt(:,5), 0.05)];
-        s22 = [lowpass(s22_notfilt(:,4), 0.05), lowpass(s22_notfilt(:,5), 0.05)];
-    else
-        s11 = [movmean(s11_notfilt(:,4), 50), movmean(s11_notfilt(:,5), 20)];
-        s21 = [movmean(s21_notfilt(:,4), 50), movmean(s21_notfilt(:,5), 20)];
-        s12 = [movmean(s12_notfilt(:,4), 50), movmean(s12_notfilt(:,5), 20)];
-        s22 = [movmean(s22_notfilt(:,4), 50), movmean(s22_notfilt(:,5), 20)];
->>>>>>> 907118c95a4f52bc99bd32f740f8537aefc95801
+        s11 = [movmean(s11_notfilt(:, 4), 50), movmean(s11_notfilt(:, 5), 20)];
+        s21 = [movmean(s21_notfilt(:, 4), 50), movmean(s21_notfilt(:, 5), 20)];
+        s12 = [movmean(s12_notfilt(:, 4), 50), movmean(s12_notfilt(:, 5), 20)];
+        s22 = [movmean(s22_notfilt(:, 4), 50), movmean(s22_notfilt(:, 5), 20)];
     end
-    
+
 else
     s11 = [s11_notfilt(:, 4), s11_notfilt(:, 5)];
     s21 = [s21_notfilt(:, 4), s21_notfilt(:, 5)];
@@ -131,8 +101,4 @@ plot(s11_notfilt(:, 1), s21(:, 2));
 title("S21 MUT (PLA) IMAG");
 hold off
 legend('measured', 'filtered')
-<<<<<<< HEAD
-xlim([2.2e10 2.75e10])
-=======
 %xlim([2.2e10 2.75e10])
->>>>>>> 907118c95a4f52bc99bd32f740f8537aefc95801

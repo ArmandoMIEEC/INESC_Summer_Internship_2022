@@ -91,3 +91,4 @@ title('Permitividade da Amostra');
 xlabel('f (GHz)');
 ylabel('Permitividade Relativa');
 legend("Parte Real", "Parte Imaginária")
+%}
