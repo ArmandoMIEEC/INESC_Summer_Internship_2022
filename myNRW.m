@@ -3,8 +3,8 @@ clc;
 
 e_0 = 8.8541878176e-12;
 
-%[f, er1, mur1] = getprop('PLA_2.txt');
-[f, er2, mur2] = getprop('PLA.txt');
+%[f, er1, mur1] = getprop('vidro_2.txt');
+[f, er2, mur2] = getprop('PLAgrande.txt');
 
 %{
 figure
@@ -12,11 +12,11 @@ plot(f ./ 10^9, real(er1), 'LineWidth', 2);
 hold on
 plot(f ./ 10^9, real(er2), 'LineWidth', 2);
 hold off
-legend('Parte Real Não Filtrada', 'Parte Real Filtrada');
-title('Permitividade Relativa PLA', 'FontSize', 26);
+legend('Parâmetros S não filtrados', 'Parâmetros S filtrados');
+title('Permitividade Relativa do Vidro (Parte Real)', 'FontSize', 26);
 grid();
 xlabel('Frequência (GHz)');
-ylabel('Permitividade relativa');
+ylabel('Permitividade relativa (Parte Real)');
 set(gca, 'FontSize', 20);
 %}
 
@@ -26,7 +26,7 @@ hold on
 plot(f / 10^9, imag(mur2), 'LineWidth', 2);
 hold off
 legend('Parte Real', 'Parte Imaginária');
-title('Permeabilidade Relativa do PLA', 'FontSize', 26);
+title('Permeabilidade Relativa do Vidro', 'FontSize', 26);
 grid();
 xlabel('Frequência (GHz)');
 ylabel('Permeabilidade relativa');
@@ -37,7 +37,7 @@ plot(f / 10^9, real(er2), 'LineWidth', 2);
 hold on
 plot(f / 10^9, imag(er2), 'LineWidth', 2);
 hold off
-title('Permitividade Relativa do PLA', 'FontSize', 26);
+title('Permitividade Relativa do Vidro', 'FontSize', 26);
 grid();
 xlabel('Frequência (GHz)');
 ylabel('Permitividade relativa');
@@ -47,7 +47,7 @@ set(gca, 'FontSize', 20);
 
 figure
 plot(f / 10^9,  ((2 * pi * f) * e_0) .* imag(er2), 'LineWidth', 2);
-title('Condutividade do PLA', 'FontSize', 26);
+title('Condutividade do Vidro', 'FontSize', 26);
 grid();
 xlabel('Frequência (GHz)');
 ylabel('Condutividade ((\Omega m)^{-1})');
@@ -57,7 +57,7 @@ set(gca, 'FontSize', 20);
 function [f, er, mur] = getprop(filename)
 
     % Constantes
-    L = 5e-3;
+    L = 4e-3;
     c = 299792458;
 
     data = readmatrix(filename);
@@ -78,7 +78,7 @@ function [f, er, mur] = getprop(filename)
 
     T = (s11 + s21 - Gama) ./ (1 - (s11 + s21) .* Gama);
 
-    n = ones(length(T), 1);
+    n = 1 * ones(length(T), 1);
     inv_Lambda_square = - (1 / (2 * pi * L) * (log(abs(1./T)) + (1j * 2 * pi * n))).^2;
     mur = c * (1 + Gama) .* sqrt(inv_Lambda_square) ./ ((1 - Gama) .* f);
 

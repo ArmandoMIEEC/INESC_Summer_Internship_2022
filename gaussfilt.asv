@@ -1,13 +1,13 @@
 %%% FLAGS %%%
 GAUSS_ON = false;
-LOW_ON = true;
+LOW_ON = false;
 MEAN_ON = true;
 
 %%% READ DATA %%%
-[f, s11_notfilt] = read_Sparam('PLAantenudas/s11.csv');
-[f, s12_notfilt] = read_Sparam('PLAantenudas/s12.csv');
-[f, s21_notfilt] = read_Sparam('PLAantenudas/s21.csv');
-[f, s22_notfilt] = read_Sparam('PLAantenudas/s22.csv');
+[f, s11_notfilt] = read_Sparam('vidro/s11.csv');
+[f, s12_notfilt] = read_Sparam('vidro/s12.csv');
+[f, s21_notfilt] = read_Sparam('vidro/s21.csv');
+[f, s22_notfilt] = read_Sparam('vidro/s22.csv');
 
 s11 = s11_notfilt;
 s12 = s12_notfilt;
@@ -31,7 +31,7 @@ if GAUSS_ON
 end
 
 if MEAN_ON
-  s11 = movmean(real(s11), 100) + 1j .* movmean(imag(s11), 20);
+  s11 = movmean(s11, 30);
   s21 = movmean(s21, 30);
   s12 = movmean(s12, 30);
   s22 = movmean(s22, 30);
@@ -39,7 +39,7 @@ end
 
 %%% SAVE DATA %%%
 data = [f, real(s11), imag(s11), real(s21), imag(s21)];
-writematrix(data, 'PLAgrande.txt');
+writematrix(data, 'vidro.txt');
 
 %%% PLOTS %%%
 %%% Real Part s11 %%%
@@ -64,21 +64,21 @@ legend('Not filtred', 'Filtred');
 
 %%% Real Part s21 %%%
 figure
-plot(f, real(s21_notfilt));
+plot(f, real(s12_notfilt));
 hold on
-plot(f, real(s21));
+plot(f, real(s12));
 hold off
-title('Real Part of S21');
+title('Real Part of S12');
 legend('Not filtred', 'Filtred');
 %xlim([2.2e10 2.75e10]);
 
 %%% Real Part s21 %%%
 figure
-plot(f, imag(s21_notfilt));
+plot(f, imag(s12_notfilt));
 hold on
-plot(f, imag(s21));
+plot(f, imag(s12));
 hold off
-title('Imaginary Part of S21');
+title('Imaginary Part of S12');
 legend('Not filtred', 'Filtred');
 %xlim([2.2e10 2.75e10]);
 
