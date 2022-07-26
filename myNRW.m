@@ -3,8 +3,8 @@ clc;
 
 e_0 = 8.8541878176e-12;
 
-%[f, er1, mur1] = getprop('gaussdata.txt');
-[f, er2, mur2] = getprop('vidro.txt');
+%[f, er1, mur1] = getprop('PLA_2.txt');
+[f, er2, mur2] = getprop('PLA.txt');
 
 %{
 figure
