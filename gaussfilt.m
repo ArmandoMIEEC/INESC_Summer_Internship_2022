@@ -4,10 +4,10 @@ LOW_ON = true;
 MEAN_ON = true;
 
 %%% READ DATA %%%
-[f, s11_notfilt] = read_Sparam('PLAantenudas/s11.csv');
-[f, s12_notfilt] = read_Sparam('PLAantenudas/s12.csv');
-[f, s21_notfilt] = read_Sparam('PLAantenudas/s21.csv');
-[f, s22_notfilt] = read_Sparam('PLAantenudas/s22.csv');
+[f, s11_notfilt] = read_Sparam('final/s11.csv');
+[f, s12_notfilt] = read_Sparam('final/s12.csv');
+[f, s21_notfilt] = read_Sparam('final/s21.csv');
+[f, s22_notfilt] = read_Sparam('final/s22.csv');
 
 s11 = s11_notfilt;
 s12 = s12_notfilt;
@@ -31,25 +31,30 @@ if GAUSS_ON
 end
 
 if MEAN_ON
-  s11 = movmean(real(s11), 100) + 1j .* movmean(imag(s11), 20);
-  s21 = movmean(s21, 30);
-  s12 = movmean(s12, 30);
-  s22 = movmean(s22, 30);
+  s11 = movmean(real(s11), 120) + 1j .* movmean(imag(s11), 120);
+  s21 = movmean(s21, 120);
+  s12 = movmean(s12, 120);
+  s22 = movmean(s22, 120);
 end
 
 %%% SAVE DATA %%%
 data = [f, real(s11), imag(s11), real(s21), imag(s21)];
-writematrix(data, 'PLAgrande.txt');
+writematrix(data, 'PLAGrande.txt');
+
 
 %%% PLOTS %%%
 %%% Real Part s11 %%%
 figure
-plot(f, real(s11_notfilt));
+plot(f ./ 10^9, real(s11_notfilt), 'LineWidth', 2);
 hold on
-plot(f, real(s11));
+plot(f ./ 10^9, real(s11), 'LineWidth', 2);
 hold off
-title('Real Part of S11');
-legend('Not filtred', 'Filtred');
+title('Parte Real de S_{11}', 'FontSize', 26);
+legend('Não Filtrado', 'Filtrado');
+xlabel('f (GHz)');
+ylabel('\Re(s_{11})');
+set(gca, 'FontSize', 20);
+grid();
 %xlim([2.2e10 2.75e10]);
 
 %%% Imaginary Part s11 %%%
@@ -87,11 +92,11 @@ function [f, s] = read_Sparam(filename)
   s = readmatrix(filename);
   s(end, :) = [];
   f = s(:, 1);
-  for i = 1:length(s)
-      if s(i,3) >= 0
-          s(i,3) = s(i,3) - 180;
-      end
-  end
+  %for i = 1:length(s)
+  %    if s(i,3) >= 0
+  %        s(i,3) = s(i,3) - 180;
+  %    end
+  %end
   norm = 10.^(s(:, 2) ./ 10);
   s = norm .* exp(deg2rad(s(:, 3)) * 1j);
 end

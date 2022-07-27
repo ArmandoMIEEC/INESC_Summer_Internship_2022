@@ -2,7 +2,7 @@ clear;
 clc;
 
 %Reading data
-data = readmatrix('data.txt');
+data = readmatrix('PLAGrande.txt');
 
 %Data format: [f(GHz), Re[s11], Im[s11], Re[s21], Im[s21]]
 
@@ -36,14 +36,6 @@ figure
 plot(freq, real(Er));
 title("permitividade");
 
-n = 1 / (2 * pi) .* (- 4 * pi^2 * L^2 ./ (2 * log(abs(1 ./ T))) .* imag(((1 - Gama) ./ (1 + Gama)).^2 .* (freq ./ c).^2) - angle(1 ./ T));
-figure
-plot(freq, n);
-hold on
-n = 1 / (2 * pi) * (sqrt(real(((1 - Gama) ./ (1 + Gama)).^2 .* (freq / c).^2) * 4 * pi^2 * L^2 + (log(abs(1 ./ T).^2))) - angle(1 ./ T));
-plot(freq, n);
-hold off
-legend('imag', 'real');
 
 %{
 n = fix(L * freq / c);

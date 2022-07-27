@@ -4,7 +4,7 @@ clc;
 e_0 = 8.8541878176e-12;
 
 %[f, er1, mur1] = getprop('vidro_2.txt');
-[f, er2, mur2] = getprop('PLAgrande.txt');
+[f, er2, mur2] = getprop('PLAGrande.txt');
 
 %{
 figure
@@ -75,12 +75,12 @@ function [f, er, mur] = getprop(filename)
         Gama(i) = X(i) - sqrt(X(i)^2 - 1);
       end
     end
-
+    
     T = (s11 + s21 - Gama) ./ (1 - (s11 + s21) .* Gama);
 
     n = 1 * ones(length(T), 1);
-    inv_Lambda_square = - (1 / (2 * pi * L) * (log(abs(1./T)) + (1j * 2 * pi * n))).^2;
-    mur = c * (1 + Gama) .* sqrt(inv_Lambda_square) ./ ((1 - Gama) .* f);
+    inv_Lambda_square = - (1 / (2 * pi * L) * (log(abs(1./T)) + (1j * 2 * pi .* n))).^2;
+    mur = c .* (1 + Gama) .* sqrt(inv_Lambda_square) ./ ((1 - Gama) .* f);
 
     er = c^2 ./ (mur .* f.^2) .* inv_Lambda_square;
 end
